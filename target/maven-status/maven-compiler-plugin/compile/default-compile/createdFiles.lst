@@ -1,0 +1,8 @@
+pl/monika/mavenproject1/model/Student.class
+pl/monika/mavenproject1/config/SwaggerConfig.class
+pl/monika/mavenproject1/service/StudentRepository.class
+pl/monika/mavenproject1/config/CacheConfig.class
+pl/monika/mavenproject1/service/StudentServiceImpl.class
+pl/monika/mavenproject1/controller/StudentController.class
+pl/monika/mavenproject1/service/StudentService.class
+pl/monika/mavenproject1/Application.class
