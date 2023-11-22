@@ -41,6 +41,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "cachowanieStudentow", allEntries = true)
     public void deleteStudent(Long id) {
         studentRepository.deleteById(id);
     }

@@ -37,6 +37,8 @@ public class Student implements Serializable {
     }
     
     public void setSurname(String surname) {
+        if (surname == null || surname.equals("")) 
+            throw new IllegalArgumentException("Niepoprawne nazwisko");
         this.surname = surname;
     }
     
@@ -45,6 +47,8 @@ public class Student implements Serializable {
     }
     
     public void setName(String name) {
+        if (name == null || name.equals("")) 
+            throw new IllegalArgumentException("Niepoprawne imię");
         this.name = name;
     }
     
