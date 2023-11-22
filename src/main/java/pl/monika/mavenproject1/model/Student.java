@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.apache.logging.log4j.util.Strings;
 
 @Entity
 public class Student implements Serializable {
@@ -37,7 +38,7 @@ public class Student implements Serializable {
     }
     
     public void setSurname(String surname) {
-        if (surname == null || surname.equals("")) 
+        if (Strings.isBlank(surname)) 
             throw new IllegalArgumentException("Niepoprawne nazwisko");
         this.surname = surname;
     }
@@ -47,7 +48,7 @@ public class Student implements Serializable {
     }
     
     public void setName(String name) {
-        if (name == null || name.equals("")) 
+        if (Strings.isBlank(name)) 
             throw new IllegalArgumentException("Niepoprawne imię");
         this.name = name;
     }
@@ -57,6 +58,8 @@ public class Student implements Serializable {
     }
     
     public void setIndexNumber(String indexNumber) {
+        if (Strings.isBlank(indexNumber))
+            throw new IllegalArgumentException("Niepoprawny numer indeksu");
         this.indexNumber = indexNumber;
     }
     
@@ -65,6 +68,8 @@ public class Student implements Serializable {
     }
     
     public void setTerm(Integer term) {
+        if (term < 0)
+            throw new IllegalArgumentException("Semestr nie może być liczbą ujemną");
         this.term = term;
     }
     
