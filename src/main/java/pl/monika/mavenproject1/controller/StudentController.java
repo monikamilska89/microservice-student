@@ -35,7 +35,7 @@ public class StudentController {
     @RequestMapping(value = "/students/{id}", method = RequestMethod.GET, produces={"application/json"})
     public Student getOneStudent(@PathVariable Long id) {
          Optional<Student> result = studentService.getStudentById(id);
-         return result.isPresent() ? result.get() : null;
+         return result.orElse(null);
     }
     
     @RequestMapping(value = "/students/{id}", method = RequestMethod.DELETE)

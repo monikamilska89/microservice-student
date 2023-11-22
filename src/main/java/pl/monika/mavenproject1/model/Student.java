@@ -65,6 +65,22 @@ public class Student implements Serializable {
     }
     
     @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Student)) return false;
+        Student student = (Student) object;
+        return (this == student) || (this.id.equals(student.getId())
+                && this.name.equals(student.getName())
+                && this.surname.equals(student.getSurname())
+                && this.indexNumber.equals(student.getIndexNumber())
+                && this.term.equals(student.getTerm()));
+    }
+    
+    @Override
+    public int hashCode() {
+        return this.name.hashCode() + this.surname.hashCode() + this.indexNumber.hashCode();
+    }
+    
+    @Override
     public String toString() {
         return "[id: " + this.id + "] " +  this.name + " " + this.surname
                 + ", numer indeksu: " + this.indexNumber + ", semestr: " + this.term;

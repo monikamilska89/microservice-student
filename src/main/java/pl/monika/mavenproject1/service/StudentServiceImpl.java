@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import pl.monika.mavenproject1.model.Student;
@@ -22,6 +23,7 @@ public class StudentServiceImpl implements StudentService {
     
     @Override
     @Transactional
+    @CacheEvict(value = "cachowanieStudentow", allEntries = true)
     public Student saveStudent(@NotNull @Valid Student student) {
         return this.studentRepository.save(student);
     }
