@@ -4,11 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.monika.mavenproject1.model.Student;
 import pl.monika.mavenproject1.service.StudentService;
 
@@ -22,23 +18,36 @@ public class StudentController {
         this.studentService = studentService;
     }
     
-    @RequestMapping(value = "/students", method = RequestMethod.POST, consumes={"application/json"})
-    public Student saveStudent(@RequestBody @Valid Student student) {
+    @PostMapping("/students")
+    public Student saveNewStudent(@RequestBody @Valid Student student) {
         return studentService.saveStudent(student);
     }  
     
-    @RequestMapping(value = "/students", method = RequestMethod.GET, produces={"application/json"})
+    @GetMapping("/students")
     public List<Student> getListStudents() {
         return studentService.getAllStudents();
     }
     
-    @RequestMapping(value = "/students/{id}", method = RequestMethod.GET, produces={"application/json"})
+    @PutMapping("/students/{id}")
+    public Student updateStudent(@RequestBody Student newStudent, @PathVariable Long id) {
+
+        return studentService.getStudentById(id)
+                .map(x -> {
+                    x.setName(newStudent.getName());
+                    x.setSurname(newStudent.getSurname());
+                    x.setIndexNumber(newStudent.getIndexNumber());
+                    x.setTerm(newStudent.getTerm());
+                    return studentService.saveStudent(x);
+                }).get();
+    }
+    
+    @GetMapping("/students/{id}")
     public Student getOneStudent(@PathVariable Long id) {
          Optional<Student> result = studentService.getStudentById(id);
          return result.orElse(null);
     }
     
-    @RequestMapping(value = "/students/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("/students/{id}")
     public void deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
     }
