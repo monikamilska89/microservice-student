@@ -1,6 +1,7 @@
 package pl.monika.mavenproject1.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,6 +12,21 @@ public class StudentTest {
     @Before
     public void before() {
         student = new Student();
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void createStudentWithEmptyName() {
+        student = new Student("", "Nowak", "123", 1);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void createStudentWithEmptySurname() {
+        student = new Student("Anna", "", "123", 1);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void createStudentWithEmptyIndex() {
+        student = new Student("Anna", "Nowak", "", 1);
     }
     
     @Test(expected = IllegalArgumentException.class)
@@ -70,5 +86,29 @@ public class StudentTest {
     public void setTerm() {
         student.setTerm(1);
         assertEquals((long) 1, (long) student.getTerm());
+    }
+    
+    @Test
+    public void equalsAndHashStudents() {
+        Student firstStudent = new Student("Jan", "Kowalski", "12345", 1);
+        firstStudent.setId(1L);
+        
+        Student secondStudent = new Student("Jan", "Kowalski", "12345", 1);
+        secondStudent.setId(1L);
+        
+        assertEquals(firstStudent, secondStudent);
+        assertEquals(firstStudent.hashCode(), secondStudent.hashCode());
+    }
+    
+    @Test
+    public void nonEqualsAndHashStudents() {
+        Student firstStudent = new Student("Jan", "Kowalski", "12345", 1);
+        firstStudent.setId(1L);
+        
+        Student secondStudent = new Student("Paweł", "Kowalski", "12346", 1);
+        secondStudent.setId(2L);
+        
+        assertNotEquals(firstStudent, secondStudent);
+        assertNotEquals(firstStudent.hashCode(), secondStudent.hashCode());
     }
 }

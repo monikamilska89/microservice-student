@@ -29,6 +29,21 @@ public class Student implements Serializable {
     public Student() {
     }
     
+    public Student(String name, String surname, String indexNumber, Integer term) {
+        if (Strings.isBlank(name) || Strings.isBlank(surname)
+                || Strings.isBlank(indexNumber))
+            throw new IllegalArgumentException("Niepoprawne dane studenta");
+        
+        this.name = name;
+        this.surname = surname;
+        this.indexNumber = indexNumber;
+        this.term = term;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public Long getId() {
         return id;
     }
